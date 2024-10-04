@@ -1,9 +1,6 @@
 debug/
 target/
-/target/
 
 Cargo.lock
 
 **/*.rs.bk
-
-*.pdb
