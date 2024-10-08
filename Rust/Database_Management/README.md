@@ -1,6 +1,3 @@
-# Database Management
+Basic CRUD operations
 
-In this project lorem
-
-
-CRUD operations
+big data analysis
