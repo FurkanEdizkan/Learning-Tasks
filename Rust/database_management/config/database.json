@@ -1,0 +1,45 @@
+{
+    "tables": {
+      "person": {
+        "columns": [
+          { "name": "id", "type": "INTEGER", "constraints": ["PRIMARY KEY"] },
+          { "name": "name", "type": "TEXT", "constraints": ["NOT NULL"] },
+          { "name": "age", "type": "INTEGER", "constraints": [] }
+        ],
+        "data": [
+          { "id": 1, "name": "Alice", "age": 30 },
+          { "id": 2, "name": "Bob", "age": 25 },
+          { "id": 3, "name": "Charlie", "age": 28 }
+        ]
+      },
+      "address": {
+        "columns": [
+          { "name": "id", "type": "INTEGER", "constraints": ["PRIMARY KEY"] },
+          { "name": "person_id", "type": "INTEGER", "constraints": ["NOT NULL", "FOREIGN KEY(person_id) REFERENCES person(id)"] },
+          { "name": "street", "type": "TEXT", "constraints": ["NOT NULL"] },
+          { "name": "city", "type": "TEXT", "constraints": ["NOT NULL"] },
+          { "name": "state", "type": "TEXT", "constraints": ["NOT NULL"] },
+          { "name": "zip", "type": "TEXT", "constraints": ["NOT NULL"] }
+        ],
+        "data": [
+          { "id": 1, "person_id": 1, "street": "123 Main St", "city": "Metropolis", "state": "NY", "zip": "10001" },
+          { "id": 2, "person_id": 2, "street": "456 Maple Ave", "city": "Gotham", "state": "NJ", "zip": "07001" },
+          { "id": 3, "person_id": 3, "street": "789 Oak Dr", "city": "Star City", "state": "CA", "zip": "90210" }
+        ]
+      },
+      "orders": {
+        "columns": [
+          { "name": "id", "type": "INTEGER", "constraints": ["PRIMARY KEY"] },
+          { "name": "person_id", "type": "INTEGER", "constraints": ["NOT NULL", "FOREIGN KEY(person_id) REFERENCES person(id)"] },
+          { "name": "product", "type": "TEXT", "constraints": ["NOT NULL"] },
+          { "name": "quantity", "type": "INTEGER", "constraints": ["NOT NULL"] }
+        ],
+        "data": [
+          { "id": 1, "person_id": 1, "product": "Laptop", "quantity": 1 },
+          { "id": 2, "person_id": 1, "product": "Phone", "quantity": 2 },
+          { "id": 3, "person_id": 2, "product": "Tablet", "quantity": 1 }
+        ]
+      }
+    }
+  }
+  
