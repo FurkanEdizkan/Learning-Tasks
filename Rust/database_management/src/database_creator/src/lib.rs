@@ -75,3 +75,40 @@ pub fn create_database_from_config(config_path: &str, db_path: &str) -> SqlResul
 
     Ok(())
 }
+
+pub fn insert_data_from_config (config_path: &str, db_path: &str) -> SqlResult<()> {
+    // Check if the config file exists
+    if !Path::new(config_path).exists() {
+        println!("Failed to find the config file: {}", config_path);
+        std::process::exit(1);
+    }
+
+    // Check if the database file exists
+    if !Path::new(db_path).exists() {
+        println!("Database not found: {}", db_path);
+        std::process::exit(1);
+    }
+
+    // Read the config file
+    let config_data = fs::read_to_string(config_path)
+        .expect("Failed to read the config file");
+
+    // Parse the config as JSON
+    let config: Value = serde_json::from_str(&config_data)
+        .expect("Failed to parse the config file");
+
+    // Create a connection to the database
+    let conn = Connection::open(db_path)?;
+
+    if let Some(tables) = config["tables"].as_object() {
+        for (table_name, table_info) in tables {
+            let data = table_info["data"].as_array().unwrap();
+
+            for item in data {
+                
+            }
+        }
+    }
+
+    Ok(())
+}
