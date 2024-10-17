@@ -102,10 +102,32 @@ pub fn insert_data_from_config (config_path: &str, db_path: &str) -> SqlResult<(
 
     if let Some(tables) = config["tables"].as_object() {
         for (table_name, table_info) in tables {
+            let columns = table_info["columns"].as_array().unwrap();
             let data = table_info["data"].as_array().unwrap();
+            
+            // Prepare the insert statement
+            let column_names: Vec<String> = columns.iter()
+                .map(|col| col["name"].as_str().unwrap().to_string())
+                .collect();
 
+            let placeholders = column_names.iter().map(|_| "?").collect::<Vec<_>>().join(", ");
+            let insert_query = format!(
+                "INSERT INTO {} ({}) VALUES ({})",
+                table_name,
+                column_names.join(", "),
+                placeholders
+            );
+            println!("{}", insert_query);
+
+            // Insert each row of data
             for item in data {
+                // Collect values for the current item based on column names
+                let values: Vec<Value> = column_names.iter()
+                    .map(|col_name| item[col_name].clone())
+                    .collect();
                 
+                // Convert values to dynamic SQL types
+
             }
         }
     }
